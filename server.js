@@ -1,40 +1,37 @@
-const express = require('express');
-const path    = require('path');
-
-const app = express();
-const PORT = 3000;
+const express   = require('express');
+const path      = require('path');
+const app       = express();
+const PORT      = 3000;
 
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.urlencoded({extended: true}));
 
 
-let name         = null;
-let ingredients = null; 
+let nome         = null;
+let ingredientes = null; 
 
 app.post('/home', (req, res) => {
 
-    name        = req.body.name;
-    ingredients = req.body.ingredients;  
+    nome         = req.body.nome;
+    ingredientes = req.body.ingredientes;  
     
-    res.redirect(`/sugestao?nome=${name}&ingredientes=${ingredients}`)
+    res.redirect(`/sugestao?nome=${nome}&ingredientes=${ingredientes}`)
 
 });
 
 
-app.post('/sugestao', (req, res) =>{
+app.get('/sugestao', (req, res) =>{
 
-    name        = req.query.nome;
-    ingredients = req.query.ingredientes;
+    nome        = req.query.nome;
+    ingredientes = req.query.ingredientes;
 
-    res.redirect('/thanks')
-
-
+    res.send(`o nome da sugestao é ${nome}, e os ingredientes são ${ingredientes}`);
 
 })
 
-app.get('/thanks', (req, res) =>{
+app.post('/contato', (req, res)=>{
 
-    res.send(`o nome da sugestao é ${name}, e os ingredientes são ${ingredients}`);
+    
 
 })
 

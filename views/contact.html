@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contato</title>
 </head>
 <body>
-    pagina de contato
+    <Header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="">Lanches</a></li>
+            </ul>
+        </nav>
+    </Header>
+
+    <main>
+        <form action="/home" method="POST">
+            <div>
+                <label for="nome">Informe o nome do lanche:</label>
+                <input type="text" name="nome" id="nome" required>
+            </div>
+            <div>
+                <label for="ingredientes">Informe os ingredientes:</label>
+                <input type="text" name="ingredientes" id="ingredientes" required>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+    
 </body>
 </html>
