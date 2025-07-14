@@ -37,8 +37,8 @@ app.get('/sugestao', (req, res) => {
             <header>
                 <nav>
                     <ul>
-                        <li><a href="index.html">Lanches</a></li>
-                        <li><a href="contact.html">Contato</a></li>
+                        <li><a href="/">Lanches</a></li>
+                        <li><a href="/contato">Contato</a></li>
                     </ul>
                 </nav>
             </header>
@@ -72,13 +72,13 @@ app.get('/contato', (req, res) => {
 
 
 app.post('/contato', (req, res) => {
-    const { nome, email, mensagem } = req.body;
-    res.redirect(`/contatoThanks?nome=${encodeURIComponent(nome)}&email=${encodeURIComponent(email)}&mensagem=${encodeURIComponent(mensagem)}`);
+    const { nome, email, mensagem, assunto } = req.body;
+    res.status(302).redirect(`/contatoThanks?nome=${encodeURIComponent(nome)}&email=${encodeURIComponent(email)}&mensagem=${encodeURIComponent(mensagem)}&assunto=${encodeURIComponent(assunto)}`);
 });
 
 
 app.get('/contatoThanks', (req, res) => {
-    const { nome, email, mensagem } = req.query;
+    const { nome, email, mensagem, assunto } = req.query;
     res.send(`<!DOCTYPE html>
             <html lang="en">
             <head>
@@ -91,7 +91,7 @@ app.get('/contatoThanks', (req, res) => {
                 <Header>
                     <nav>
                         <ul>
-                            <li><a href="index.html">Lanches</a></li>
+                            <li><a href="/">Lanches</a></li>
                             <li><a href="/contato">Contato</a></li>
                         </ul>
                     </nav>
@@ -101,6 +101,7 @@ app.get('/contatoThanks', (req, res) => {
                     <h1>Agradecemos seu contato!</h1>
                     <p><b>Nome</b>: ${nome}</p>
                     <p><b>Email</b>: ${email}</p>
+                    <p><b>Assunto</b>: ${assunto}</p>
                     <p><b>Mensagem</b>: ${mensagem}</p>
                 </div>
                 
