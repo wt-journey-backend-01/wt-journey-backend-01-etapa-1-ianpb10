@@ -63,11 +63,7 @@ app.post('/contato', (req, res) => {
 
 app.get('/api/lanches', (req, res) => {
 
-    const lanches = [
-        { id: 1, nome: "DevBurger Clássico", ingredientes: "Pão, carne, queijo, alface" },
-        { id: 2, nome: "Veggie Burger", ingredientes: "Pão integral, hambúrguer de grão de bico, tomate" },
-        { id: 3, nome: "Cheddar Bacon", ingredientes: "Pão, carne, cheddar, bacon crocante" }
-    ];
+    const lanches = require("./public/lanches.json")
 
     res.json(lanches);
 

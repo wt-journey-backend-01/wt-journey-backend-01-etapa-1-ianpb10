@@ -27,7 +27,37 @@
             </div>
             <button type="submit">Enviar</button>
         </form>
+
+        <h2>Lanches Disponíveis</h2>
+        <table id="lanches-table" border="1">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Ingredientes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os lanches serão inseridos aqui -->
+            </tbody>
+        </table>
     </main>
+    
+    <script>
+        fetch('/api/lanches')
+            .then(response => response.json())
+            .then(lanches => {
+                const tbody = document.querySelector('#lanches-table tbody');
+                lanches.forEach(lanche => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${lanche.nome}</td><td>${lanche.ingredientes}</td>`;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(err => {
+                const tbody = document.querySelector('#lanches-table tbody');
+                tbody.innerHTML = `<tr><td colspan="2">Erro ao carregar lanches</td></tr>`;
+            });
+    </script>
     
 </body>
 </html>
