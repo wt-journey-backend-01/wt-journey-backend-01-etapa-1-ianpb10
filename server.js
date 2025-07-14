@@ -21,14 +21,39 @@ app.get('/', (req, res) => {
 
 
 app.get('/sugestao', (req, res) => {
+    const nome = req.query.nome;
+    const ingredientes = req.query.ingredientes;
 
-    nome = req.query.nome;
-    ingredientes = req.query.ingredientes;
-
-    res.status(200).sendFile(path.join(__dirname, 'views', 'thanks.html'));
-
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Agradecimentos</title>
+            <link rel="stylesheet" href="/css/thanks.css">
+        </head>
+        <body>
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Lanches</a></li>
+                        <li><a href="contact.html">Contato</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="thanks-container">
+                <h1>Agradecemos sua sugestão!</h1>
+                <p>Ela foi recebida com sucesso.</p>
+                <div>
+                    <p><strong>Nome do lanche:</strong> ${nome ? nome : ''}</p>
+                    <p><strong>Ingredientes:</strong> ${ingredientes ? ingredientes : ''}</p>
+                </div>
+            </div>
+        </body>
+        </html>
+    `);
 });
-
 
 app.post('/home', (req, res) => {
 
@@ -53,7 +78,34 @@ app.post('/contato', (req, res) => {
 
 
 app.get('/contatoThanks', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'contactThanks.html'));
+    const { nome, email, mensagem } = req.query;
+    res.send(`<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Recebimento de Contato</title>
+                <link rel="stylesheet" href="/css/contactThanks.css">
+            </head>
+            <body>
+                <Header>
+                    <nav>
+                        <ul>
+                            <li><a href="index.html">Lanches</a></li>
+                            <li><a href="/contato">Contato</a></li>
+                        </ul>
+                    </nav>
+                </Header>
+                    
+                <div class="thanks-container">
+                    <h1>Agradecemos seu contato!</h1>
+                    <p><b>Nome</b>: ${nome}</p>
+                    <p><b>Email</b>: ${email}</p>
+                    <p><b>Mensagem</b>: ${mensagem}</p>
+                </div>
+                
+            </body>
+            </html>`);
 });
 
 
