@@ -13,7 +13,7 @@ let ingredientes = null;
 
 app.get('/', (req, res) => {
 
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+    res.status(200).sendFile(path.join(__dirname, 'views', 'index.html'));
 
 });
 
@@ -23,10 +23,7 @@ app.get('/sugestao', (req, res) => {
     nome = req.query.nome;
     ingredientes = req.query.ingredientes;
 
-    res.send(`
-        <h1>Obrigado pela sugestão, ${nome}!</h1>
-        <p>Ingredientes: ${ingredientes}</p>
-    `);
+    res.status(200).sendFile(path.join(__dirname, 'views', 'thanks.html'));
 
 });
 
@@ -35,14 +32,14 @@ app.post('/home', (req, res) => {
 
     nome = req.body.nome;
     ingredientes = req.body.ingredientes;
-    res.redirect(`/sugestao?nome=${nome}&ingredientes=${ingredientes}`);
+    res.status(302).redirect(`/sugestao?nome=${nome}&ingredientes=${ingredientes}`);
 
 });
 
 
 app.get('/contato', (req, res) => {
 
-    res.sendFile(path.join(__dirname, 'views', 'contact.html'));
+    res.status(200).sendFile(path.join(__dirname, 'views', 'contact.html'));
 
 });
 
@@ -51,12 +48,8 @@ app.post('/contato', (req, res) => {
 
     const { nome, email, mensagem } = req.body;
 
-    res.send(`
-        <h1>Mensagem Recebida</h1>
-        <p><strong>Nome:</strong> ${nome}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Mensagem:</strong> ${mensagem}</p>
-    `);
+    res.sendFile(path.join(__dirname, 'views', 'contactThanks.html'));
+
 
 });
 
@@ -65,8 +58,12 @@ app.get('/api/lanches', (req, res) => {
 
     const lanches = require("./public/lanches.json")
 
-    res.json(lanches);
+    res.status(200).json(lanches);
 
+});
+
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
 
