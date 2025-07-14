@@ -7,9 +7,31 @@
     <link rel="stylesheet" href="/css/thanks.css">
 </head>
 <body>
+    <Header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Lanches</a></li>
+                <li><a href="contact.html">Contato</a></li>
+            </ul>
+        </nav>
+    </Header>
+    
     <div class="thanks-container">
         <h1>Agradecemos sua sugestão!</h1>
         <p>Ela foi recebida com sucesso.</p>
+        <div id="dados-lanche"></div>
     </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nome = params.get('nome');
+        const ingredientes = params.get('ingredientes');
+        if (nome && ingredientes) {
+            document.getElementById('dados-lanche').innerHTML = `
+                <p><strong>Nome do lanche:</strong> ${nome}</p>
+                <p><strong>Ingredientes:</strong> ${ingredientes}</p>
+            `;
+        }
+    </script>
 </body>
 </html>

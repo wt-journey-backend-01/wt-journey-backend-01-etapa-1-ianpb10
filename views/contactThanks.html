@@ -7,8 +7,31 @@
     <link rel="stylesheet" href="/css/contactThanks.css">
 </head>
 <body>
+    <Header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Lanches</a></li>
+                <li><a href="contact.html">Contato</a></li>
+            </ul>
+        </nav>
+    </Header>
+        
     <div class="thanks-container">
         <h1>Agradecemos seu contato!</h1>
+        <div id="dados-contato"></div>
     </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nome = params.get('nome');
+        const email = params.get('email');
+        const mensagem = params.get('mensagem');
+        if (nome && email && mensagem) {
+            document.getElementById('dados-contato').innerHTML = `
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Mensagem:</strong> ${mensagem}</p>
+            `;
+        }
+    </script>
 </body>
 </html>

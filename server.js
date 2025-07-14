@@ -47,12 +47,13 @@ app.get('/contato', (req, res) => {
 
 
 app.post('/contato', (req, res) => {
-
     const { nome, email, mensagem } = req.body;
+    res.redirect(`/contatoThanks?nome=${encodeURIComponent(nome)}&email=${encodeURIComponent(email)}&mensagem=${encodeURIComponent(mensagem)}`);
+});
 
+
+app.get('/contatoThanks', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'contactThanks.html'));
-
-
 });
 
 
