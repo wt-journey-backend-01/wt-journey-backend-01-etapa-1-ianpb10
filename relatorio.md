@@ -1,37 +1,53 @@
 <sup>Esse é um feedback gerado por IA, ele pode conter erros.</sup>
 
-Você tem 3 créditos restantes para usar o sistema de feedback AI.
+Você tem 2 créditos restantes para usar o sistema de feedback AI.
 
 # Feedback para ianpb10:
 
-Nota final: **59.0/100**
+Nota final: **81.1/100**
 
 Olá, ianpb10! 🚀
 
-Primeiramente, quero parabenizá-lo pelo seu esforço e pela dedicação que você colocou neste desafio! 🎉 É sempre muito bom ver o empenho em aprender e evoluir. Você utilizou corretamente as tags `<label>` e o atributo `id` nos inputs 'nome' e 'ingredientes' na rota `/sugestao`, e isso faz toda a diferença na acessibilidade e usabilidade do seu formulário. Ótimo trabalho! 👏
+Primeiramente, parabéns pela sua nota final de **81.1/100**! Isso demonstra que você está no caminho certo e fazendo um ótimo trabalho. Vamos explorar juntos o que funcionou bem e onde podemos melhorar, tudo de uma forma leve e didática! 
 
-Agora, vamos dar uma olhada nos pontos que precisam de atenção. Alguns requisitos falharam, e ao investigar seu código, percebi que a raiz de muitos desses problemas pode ser relacionada às rotas que você implementou. Vamos analisar isso juntos:
+### 🎉 Conquistas Bônus
+Antes de mais nada, quero celebrar algumas vitórias que você alcançou! 🎊
+- Você criou um template para a página de erro 404 que inclui uma âncora para a rota raiz. Isso é super importante para a navegação do usuário! 
+- Além disso, utilizou corretamente as tags `<label>` e o atributo `id` nos inputs de 'nome' e 'ingredientes' na rota `/sugestao`. Isso demonstra que você está se atentando às boas práticas de acessibilidade! 👏
 
-### 1. Rota `/sugestao`
-- **Exibir nome e ingredientes:** Você está recebendo o `nome` e os `ingredientes` via `query string`, mas não está exibindo essas informações na página `thanks.html`. Precisamos garantir que essas informações sejam passadas para a página e exibidas corretamente. Talvez você precise usar um mecanismo de template (como EJS ou Pug) para renderizar esses dados na página HTML.
+### 🔍 Análise de Causa Raiz
+Agora, vamos mergulhar nos requisitos que precisam de atenção. Alguns pontos estão interligados, então vamos investigá-los juntos:
 
-- **Âncora para a rota raiz:** Não vi uma âncora que leve de volta à rota `/`. Isso é importante para a navegação do usuário. Vamos adicionar um link que permita ao usuário retornar facilmente para a página inicial!
+1. **Rota `/sugestao` precisa de uma âncora para a rota raiz `/`:** 
+   - Ao analisar seu código, percebi que a rota `/sugestao` não possui um link que direcione de volta para a página inicial. Para melhorar a experiência do usuário, você pode adicionar um link na sua página de agradecimento que redirecione para a rota `/`. Isso ajudará os usuários a navegar facilmente!
 
-### 2. Rota `/contato`
-- **Falta do campo 'assunto':** Você mencionou que a rota `/contato` não possui um campo de input ou textarea do tipo texto com o atributo `name` como "assunto". Isso é crucial! Vamos adicionar esse campo ao seu formulário.
+2. **Rota `/contato` (GET) precisa de um campo de input ou textarea do tipo texto com atributo name como "assunto":**
+   - Acredito que a ausência desse campo em seu formulário de contato é o que está causando essa falha. Você pode adicioná-lo no arquivo `contact.html` com algo como:
+     ```html
+     <label for="assunto">Assunto:</label>
+     <input type="text" id="assunto" name="assunto" required>
+     ```
 
-- **Âncora para a rota raiz:** Assim como na rota `/sugestao`, falta uma âncora que leve à página inicial. Isso é fundamental para a experiência do usuário.
+3. **Rota `/contato` (POST) deve retornar uma página HTML diretamente ou redirecionar para `/contato-recebido`:**
+   - O código atual está redirecionando para uma rota, mas o status code não está correto. Você pode definir a resposta da seguinte maneira:
+     ```javascript
+     res.status(200).sendFile(path.join(__dirname, 'views', 'contato-recebido.html'));
+     ```
+   - Isso irá garantir que você esteja respondendo um código 200 e enviando uma página HTML diretamente.
 
-- **Resposta do POST:** Na rota `app.post('/contato', ...)`, você não está retornando um status code 200 e o tipo de conteúdo correto. Você deve redirecionar ou renderizar uma página HTML diretamente ao invés de usar um redirecionamento com status 302. Isso precisa ser ajustado.
+4. **Resposta da rota `/contato` (POST) deve exibir "nome", "email", "assunto" e "mensagem":**
+   - Para abordar isso, você pode modificar a página de resposta que você enviará para incluir esses dados. Você pode fazer algo como:
+     ```javascript
+     const { nome, email, assunto, mensagem } = req.body;
+     res.send(`...<p><strong>Assunto:</strong> ${assunto}</p>...`);
+     ```
 
-- **Exibir informações na página de resposta:** A página de resposta que você está tentando criar para `/contato` não está exibindo as informações enviadas: `nome`, `email`, `assunto` e `mensagem`. Assim como na rota `/sugestao`, você pode precisar de um template para mostrar esses dados.
+5. **Rota `/contato` (POST) deve ter uma âncora para a rota raiz `/`:**
+   - Assim como na rota `/sugestao`, a página de resposta também deve incluir um link para retornar à página principal. Isso é importante para a usabilidade do site!
 
-### 3. Rota `/contatoThanks`
-- Acredito que o que falta aqui é que a resposta do POST para `/contato` deveria redirecionar para `/contatoThanks`, mas com o status 200 e o conteúdo HTML adequado, e não apenas um redirecionamento simples.
+### 🌟 Conclusão
+Você fez progressos incríveis até agora, e com algumas pequenas melhorias, seu código pode se tornar ainda mais robusto! Lembre-se de que cada erro é uma oportunidade de aprendizado, e estou aqui para te apoiar nesse processo. Continue praticando e explorando o mundo do Node.js e do Express.js! 
 
-### Resumo
-Percebi que muitos dos desafios estão relacionados à forma como as informações estão sendo passadas e exibidas nas páginas HTML. Isso é algo que podemos corrigir juntos! 💪
+Se você tiver alguma dúvida ou precisar de mais ajuda, não hesite em perguntar. Estou aqui para isso! Vamos juntos fazer do seu projeto algo ainda mais incrível! 💪✨
 
-Mantenha o foco e continue praticando! Cada erro é uma oportunidade de aprendizado e você está no caminho certo. Estou aqui para ajudar no que você precisar! Se precisar de mais detalhes ou exemplos, é só me avisar! 😊
-
-Desejo muito sucesso nos seus próximos passos! Vamos em frente! 🚀
+Um abraço, e até a próxima!
