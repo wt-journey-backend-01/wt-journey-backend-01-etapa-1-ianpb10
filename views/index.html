@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
     <Header>
         <nav>
             <ul>
                 <li><a href="contact.html">Contato</a></li>
-                <li><a href="#">Lanches</a></li>
             </ul>
         </nav>
     </Header>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
     </main>
-    
+
     <script>
         fetch('/api/lanches')
             .then(response => response.json())

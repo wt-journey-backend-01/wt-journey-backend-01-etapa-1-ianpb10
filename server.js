@@ -3,6 +3,8 @@ const path      = require('path');
 const app       = express();
 const PORT      = 3000;
 
+
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.urlencoded({extended: true}));
 
@@ -56,7 +58,7 @@ app.post('/contato', (req, res) => {
 
 app.get('/api/lanches', (req, res) => {
 
-    const lanches = require("./public/lanches.json")
+    const lanches = require("./public/data/lanches.json");
 
     res.status(200).json(lanches);
 
