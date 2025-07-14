@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <Header>
+        <nav>
+            <ul>
+                <li><a href="contact.html">Contato</a></li>
+                <li><a href="#">Lanches</a></li>
+            </ul>
+        </nav>
+    </Header>
+
+    <main>
+        <form action="/sugestao" method="POST">
+            <div>
+                <label for="name">Informe o nome do lanche:</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+            <div>
+                <label for="ingredients">Informe os ingredientes:</label>
+                <input type="text" name="ingredients" id="ingredients" required>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+    
+</body>
+</html>
