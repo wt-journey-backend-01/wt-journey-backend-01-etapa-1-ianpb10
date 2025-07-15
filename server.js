@@ -63,50 +63,46 @@ app.post('/home', (req, res) => {
 
 });
 
-
 app.get('/contato', (req, res) => {
-
     res.status(200).sendFile(path.join(__dirname, 'views', 'contact.html'));
-
 });
-
 
 app.post('/contato', (req, res) => {
     const { nome, email, mensagem, assunto } = req.body;
-    res.status(302).redirect(`/contatoThanks?nome=${encodeURIComponent(nome)}&email=${encodeURIComponent(email)}&mensagem=${encodeURIComponent(mensagem)}&assunto=${encodeURIComponent(assunto)}`);
+    res.redirect(302, `/contato-recebido?nome=${encodeURIComponent(nome)}&email=${encodeURIComponent(email)}&mensagem=${encodeURIComponent(mensagem)}&assunto=${encodeURIComponent(assunto)}`);
 });
 
 
-app.get('/contatoThanks', (req, res) => {
+app.get('/contato-recebido', (req, res) => {
     const { nome, email, mensagem, assunto } = req.query;
-    res.send(`<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Recebimento de Contato</title>
-                <link rel="stylesheet" href="/css/contactThanks.css">
-            </head>
-            <body>
-                <Header>
-                    <nav>
-                        <ul>
-                            <li><a href="/">Lanches</a></li>
-                            <li><a href="/contato">Contato</a></li>
-                        </ul>
-                    </nav>
-                </Header>
-                    
-                <div class="thanks-container">
-                    <h1>Agradecemos seu contato!</h1>
-                    <p><b>Nome</b>: ${nome}</p>
-                    <p><b>Email</b>: ${email}</p>
-                    <p><b>Assunto</b>: ${assunto}</p>
-                    <p><b>Mensagem</b>: ${mensagem}</p>
-                </div>
-                
-            </body>
-            </html>`);
+    res.status(200).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Recebimento de Contato</title>
+            <link rel="stylesheet" href="/css/contactThanks.css">
+        </head>
+        <body>
+            <Header>
+                <nav>
+                    <ul>
+                        <li><a href="/">Lanches</a></li>
+                        <li><a href="/contato">Contato</a></li>
+                    </ul>
+                </nav>
+            </Header>
+            <div class="thanks-container">
+                <h1>Agradecemos seu contato!</h1>
+                <p><b>Nome</b>: ${nome}</p>
+                <p><b>Email</b>: ${email}</p>
+                <p><b>Assunto</b>: ${assunto}</p>
+                <p><b>Mensagem</b>: ${mensagem}</p>
+            </div>
+        </body>
+        </html>
+    `);
 });
 
 
