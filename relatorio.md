@@ -1,53 +1,73 @@
 <sup>Esse é um feedback gerado por IA, ele pode conter erros.</sup>
 
-Você tem 2 créditos restantes para usar o sistema de feedback AI.
+Você tem 1 créditos restantes para usar o sistema de feedback AI.
 
 # Feedback para ianpb10:
 
-Nota final: **81.1/100**
+Nota final: **85.2/100**
 
-Olá, ianpb10! 🚀
+Olá, ianpb10! 😊✨
 
-Primeiramente, parabéns pela sua nota final de **81.1/100**! Isso demonstra que você está no caminho certo e fazendo um ótimo trabalho. Vamos explorar juntos o que funcionou bem e onde podemos melhorar, tudo de uma forma leve e didática! 
+Primeiramente, quero parabenizá-lo pelo trabalho que você fez até aqui! A nota **85.2/100** é uma conquista incrível e mostra o quanto você está se esforçando para aprender e se desenvolver no Node.js com o Express. Vamos dar uma olhada nos pontos que precisam de atenção e, claro, celebrar as suas vitórias!
 
 ### 🎉 Conquistas Bônus
-Antes de mais nada, quero celebrar algumas vitórias que você alcançou! 🎊
-- Você criou um template para a página de erro 404 que inclui uma âncora para a rota raiz. Isso é super importante para a navegação do usuário! 
-- Além disso, utilizou corretamente as tags `<label>` e o atributo `id` nos inputs de 'nome' e 'ingredientes' na rota `/sugestao`. Isso demonstra que você está se atentando às boas práticas de acessibilidade! 👏
+Antes de falarmos sobre as áreas de melhoria, é importante reconhecer os seus acertos! 
+
+- Você criou um template para a página 404 que contém uma âncora para a rota raiz. Isso é excelente para a navegação do usuário! 🚀
+- Além disso, utilizou corretamente as tags `<label>` e o atributo `id` nos inputs 'nome' e 'ingredientes' na rota `/sugestao`. Isso demonstra uma boa compreensão das práticas recomendadas de acessibilidade. 👏
 
 ### 🔍 Análise de Causa Raiz
-Agora, vamos mergulhar nos requisitos que precisam de atenção. Alguns pontos estão interligados, então vamos investigá-los juntos:
+Agora, vamos investigar os pontos que precisam de melhorias. Fiquei atento a alguns requisitos relacionados à rota `/contato (POST)`, que não foram atendidos. Vamos entender cada um deles:
 
-1. **Rota `/sugestao` precisa de uma âncora para a rota raiz `/`:** 
-   - Ao analisar seu código, percebi que a rota `/sugestao` não possui um link que direcione de volta para a página inicial. Para melhorar a experiência do usuário, você pode adicionar um link na sua página de agradecimento que redirecione para a rota `/`. Isso ajudará os usuários a navegar facilmente!
+1. **Resposta final com status code 200 e Content-type `text/html`:**
+   O problema aqui é que sua rota `/contato (POST)` usa um redirecionamento (status code 302) para a página de agradecimento. O que precisamos fazer é retornar a página HTML diretamente com um status code 200. Assim, você atenderá ao requisito de exibir a página de resposta corretamente.
 
-2. **Rota `/contato` (GET) precisa de um campo de input ou textarea do tipo texto com atributo name como "assunto":**
-   - Acredito que a ausência desse campo em seu formulário de contato é o que está causando essa falha. Você pode adicioná-lo no arquivo `contact.html` com algo como:
-     ```html
-     <label for="assunto">Assunto:</label>
-     <input type="text" id="assunto" name="assunto" required>
-     ```
+2. **Deve retornar uma página HTML diretamente ou redirecionar para `/contato-recebido`:**
+   Além do ponto anterior, para seguir as instruções do desafio, você pode optar por redirecionar para uma nova rota `/contato-recebido` (status code 3xx) que pode ser criada para exibir a resposta com os dados do formulário.
 
-3. **Rota `/contato` (POST) deve retornar uma página HTML diretamente ou redirecionar para `/contato-recebido`:**
-   - O código atual está redirecionando para uma rota, mas o status code não está correto. Você pode definir a resposta da seguinte maneira:
-     ```javascript
-     res.status(200).sendFile(path.join(__dirname, 'views', 'contato-recebido.html'));
-     ```
-   - Isso irá garantir que você esteja respondendo um código 200 e enviando uma página HTML diretamente.
+3. **A página de resposta deve exibir o "nome", "email", "assunto" e "mensagem" enviados no formulário:**
+   Como estamos lidando com o redirecionamento, os dados do formulário não estão sendo exibidos na página de agradecimento. Se você retornar a resposta diretamente, poderá utilizar os dados do `req.body` e exibi-los na página.
 
-4. **Resposta da rota `/contato` (POST) deve exibir "nome", "email", "assunto" e "mensagem":**
-   - Para abordar isso, você pode modificar a página de resposta que você enviará para incluir esses dados. Você pode fazer algo como:
-     ```javascript
-     const { nome, email, assunto, mensagem } = req.body;
-     res.send(`...<p><strong>Assunto:</strong> ${assunto}</p>...`);
-     ```
+4. **Deve conter uma âncora para a rota raiz `/`:**
+   Sua página de agradecimento para o contato deve ter um link que leve de volta para a página inicial. Isso melhora a navegação e a experiência do usuário.
 
-5. **Rota `/contato` (POST) deve ter uma âncora para a rota raiz `/`:**
-   - Assim como na rota `/sugestao`, a página de resposta também deve incluir um link para retornar à página principal. Isso é importante para a usabilidade do site!
+### 🛠️ O Que Fazer?
+Para resolver esses pontos, sugiro que você faça algumas alterações na rota `/contato (POST)`. Aqui está um exemplo de como você pode retornar a página diretamente em vez de redirecionar:
 
-### 🌟 Conclusão
-Você fez progressos incríveis até agora, e com algumas pequenas melhorias, seu código pode se tornar ainda mais robusto! Lembre-se de que cada erro é uma oportunidade de aprendizado, e estou aqui para te apoiar nesse processo. Continue praticando e explorando o mundo do Node.js e do Express.js! 
+```javascript
+app.post('/contato', (req, res) => {
+    const { nome, email, mensagem, assunto } = req.body;
+    res.status(200).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Recebimento de Contato</title>
+            <link rel="stylesheet" href="/css/contactThanks.css">
+        </head>
+        <body>
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="/">Lanches</a></li>
+                        <li><a href="/contato">Contato</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="thanks-container">
+                <h1>Agradecemos seu contato!</h1>
+                <p><b>Nome</b>: ${nome}</p>
+                <p><b>Email</b>: ${email}</p>
+                <p><b>Assunto</b>: ${assunto}</p>
+                <p><b>Mensagem</b>: ${mensagem}</p>
+            </div>
+        </body>
+        </html>`);
+});
+```
 
-Se você tiver alguma dúvida ou precisar de mais ajuda, não hesite em perguntar. Estou aqui para isso! Vamos juntos fazer do seu projeto algo ainda mais incrível! 💪✨
+### 🥳 Finalizando
+Ian, a sua dedicação e esforço são notáveis e é visível que você está no caminho certo. Continue assim! 💪 Se precisar de mais ajuda ou tiver dúvidas, estou aqui para ajudar. Vamos juntos transformar esses desafios em conquistas! 🚀
 
-Um abraço, e até a próxima!
+Mantenha-se curioso e continue aprendendo! Você está fazendo um ótimo trabalho! 😊
